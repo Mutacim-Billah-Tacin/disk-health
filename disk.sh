@@ -80,7 +80,7 @@ else
     echo -e "Surface:     ${GREEN}Perfect (No bad sectors)${NC}"
 fi
 
-# Read Error Verdict (using your updated 10k threshold)
+# Read Error Verdict
 if [ -n "$READ_ERRS" ] && [ "$READ_ERRS" -gt 10000 ]; then 
     echo -e "Performance: ${YELLOW}Noticeable Scars ($READ_ERRS errors)${NC}"
     [[ -z "$VERDICT" ]] && VERDICT="ℹ️  Drive has historical read errors but is currently stable."
