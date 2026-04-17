@@ -65,5 +65,5 @@ Performance: Minor Wear (12 errors)
 - Bad Sectors Found → Disk surface damage, risk of data loss
 - High Read Errors → Drive aging, monitor closely
 
-## ⚖️ License
+## ⚖️ [License](LICENSE)
 This project is open-source. Feel free to modify and adapt it for your own workflow.
