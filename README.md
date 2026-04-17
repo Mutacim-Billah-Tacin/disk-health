@@ -16,7 +16,7 @@ A lightweight Bash utility to quickly assess the physical health of your drives 
 ## 🚀 Installation & Usage
 1. **Clone the repository**:
    ```bash
-   git clone 
+   git clone https://github.com/Mutacim-Billah-Tacin/disk-health.git
    cd disk-health
    ```
 
